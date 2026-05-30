@@ -30,3 +30,24 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
+
+app.get("/player_api.php", (req, res) => {
+  const { username, password } = req.query;
+
+  if (username !== USERNAME || password !== PASSWORD) {
+    return res.json({ user_info: { auth: 0 } });
+  }
+
+  res.json({
+    user_info: {
+      username,
+      password,
+      auth: 1,
+      status: "Active"
+    },
+    server_info: {
+      url: "iptv-auth.onrender.com",
+      https_port: 443
+    }
+  });
+});
